@@ -12,9 +12,9 @@ var app = express();
 app.use(express.static('public'));
 
 // http://expressjs.com/en/starter/basic-routing.html
-app.get("/", function (request, response) {
+/*app.get("/", function (request, response) {
   response.sendFile(__dirname + '/views/index.html');
-});
+});*/
 /*
 app.get("/dreams", function (request, response) {
   response.send(dreams);
@@ -33,17 +33,14 @@ var dreams = [
   "Wash the dishes"
 ];
 */
-app.get("/api/whoami",callback);
+app.get("/",callback);
 function callback(req,res){
   var x={
-    "ipaddress": req.headers.['x-forwarded-for,
-    "language": req.headers.accept-language,
-    "software": req.headers.user-agent
+    "ipaddress": req.headers['x-forwarded-for'].split(',')[0],
+    "language": req.headers['accept-language'].split(',')[0],
+    "software": req.headers['user-agent']
   }
-  console.log(req.headers);
-  // x-forwarded-for (ip address)
-  //accept-language(language)
-  // 'user-agent'
+  res.send(x);
   
 }
 // listen for requests :)
